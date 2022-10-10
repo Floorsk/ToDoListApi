@@ -4,15 +4,16 @@ Parse.initialize(
   "67903mBc10QJ3uJcgNHq5K5S1BffVinqdjjl89YY", // This is your Application ID
   "Zi8cUs0Wf9O50TRIWl4OE9Ok6p8WSKk870o7P8xQ" // This is your Javascript key
 );
-const Tarefa = Parse.Object.extend("Assignment");
+const Tarefa = Parse.Object.extend("Tarefa");
 const listaTarefas = document.getElementById("listaTarefas");
 const inputDescricao = document.getElementById("inputDescricao");
-const btInsert = document.getElementById("btInserir");
+const btInserir = document.getElementById("btInserir");
 
 const handleClickBtRemover = async (id) => {
-  const query = new Parse.Query(Assignment);
+  const query = new Parse.Query(Tarefa);
   try {
-    const tarefa = await query.get(id);
+  const tarefa = await query.get(id);
+    
     const response = await tarefa.destroy();
     console.log("Deleted ParseObject", response);
     lerTarefas();
@@ -22,7 +23,7 @@ const handleClickBtRemover = async (id) => {
 };
 
 const handleClickBtFeita = async (id) => {
-  const query = new Parse.Query(Assignment);
+  const query = new Parse.Query(Tarefa);
   try {
   const tarefa = await query.get(id);
   const feita = tarefa.get("feita");
@@ -42,7 +43,7 @@ const lerTarefas = async () => {
     for (const tarefa of results) {
       const descricao = tarefa.get("descricao");
       const aspas="'"
-      const nome = tarefa.id
+      const nome=tarefa.id
       const feita = tarefa.get("feita");
       if(feita==true){
         var check="V"
@@ -77,4 +78,4 @@ const inserirTarefa = async () => {
 
 lerTarefas();
 
-btInsert.onclick = inserirTarefa;
+btInserir.onclick = inserirTarefa;
